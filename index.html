@@ -377,33 +377,42 @@ CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticate
           <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
             <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">①</span>
             <div>
-              <p class="font-bold text-gray-800 text-sm">左メニューの「Authentication」を開く</p>
-              <p class="text-xs text-gray-500 mt-0.5">🔒 アイコンをクリック</p>
+              <p class="font-bold text-gray-800 text-sm">左メニューの「Authentication」をクリック</p>
+              <p class="text-xs text-gray-500 mt-0.5">🔒 のアイコンが目印です</p>
             </div>
           </div>
           <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
             <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">②</span>
             <div>
-              <p class="font-bold text-gray-800 text-sm">「Users」タブ →「Add user」をクリック</p>
+              <p class="font-bold text-gray-800 text-sm">上部タブの「Users」をクリック</p>
+              <p class="text-xs text-gray-500 mt-0.5">ユーザー一覧が表示されます</p>
             </div>
           </div>
-          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+          <div class="flex items-start gap-3 bg-yellow-50 border border-yellow-200 rounded-xl p-3">
             <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">③</span>
             <div>
-              <p class="font-bold text-gray-800 text-sm">メールアドレスとパスワードを入力</p>
-              <p class="text-xs text-gray-500 mt-0.5">これがAMSへのログイン情報になります</p>
+              <p class="font-bold text-gray-800 text-sm">右上の「Add user」をクリック →「Create new user」を選択</p>
             </div>
           </div>
           <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
             <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">④</span>
             <div>
-              <p class="font-bold text-gray-800 text-sm">「Create user」で作成</p>
+              <p class="font-bold text-gray-800 text-sm">メールアドレスとパスワードを入力</p>
+              <p class="text-xs text-gray-500 mt-0.5">これが AMS へのログイン情報になります</p>
+              <p class="text-xs text-gray-500 mt-0.5">※「Auto Confirm User?」は ON のまま</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">⑤</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「Create user」ボタンをクリック</p>
+              <p class="text-xs text-gray-500 mt-0.5">ユーザー一覧に追加されれば完了です</p>
             </div>
           </div>
         </div>
 
         <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-3">
-          <p class="text-xs text-yellow-700">💡 メールアドレスとパスワードは大切に保管してください。<br>AMS へのログインに使用します。</p>
+          <p class="text-xs text-yellow-700">💡 入力したメールアドレスとパスワードは大切に保管してください。<br>AMS へのログインに使用します。</p>
         </div>
       </div>
     </div>
@@ -415,7 +424,7 @@ CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticate
           <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm">6</span>
           <h2 class="font-black text-gray-800 text-lg">AMS に接続設定を入力</h2>
         </div>
-        <p class="text-gray-600 text-sm mb-5">ステップ3で取得した URL とキーを AMS に入力します。</p>
+        <p class="text-gray-600 text-sm mb-5">ステップ 2・3 で取得した URL とキーを AMS に入力します。</p>
 
         <div class="space-y-3 mb-5">
           <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
@@ -437,7 +446,7 @@ CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticate
               <p class="font-bold text-gray-800 text-sm">接続設定フォームに入力</p>
               <div class="mt-2 space-y-1">
                 <p class="text-xs bg-white border border-gray-200 rounded px-2 py-1">チーム名：チームの名前</p>
-                <p class="text-xs bg-white border border-gray-200 rounded px-2 py-1">Supabase URL：手順3でコピーしたURL</p>
+                <p class="text-xs bg-white border border-gray-200 rounded px-2 py-1">Supabase URL：手順2でコピーしたURL</p>
                 <p class="text-xs bg-white border border-gray-200 rounded px-2 py-1">anon public キー：手順3でコピーしたキー</p>
               </div>
             </div>
@@ -467,7 +476,7 @@ CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticate
               </div>
             </div>
             <div>
-              <p class="text-xs font-bold text-gray-500 mb-1">anon public キー（Publishable key）</p>
+              <p class="text-xs font-bold text-gray-500 mb-1">anon public キー（eyJ...）</p>
               <div class="flex gap-2">
                 <input id="show-key" type="text" readonly placeholder="ステップ3で入力してください"
                   class="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-800 min-w-0">
