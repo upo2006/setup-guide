@@ -196,32 +196,37 @@
         <p class="text-gray-600 text-sm mb-5">AMS の接続に必要な2つの情報を取得します。</p>
 
         <div class="space-y-3 mb-5">
-          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
-            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">①</span>
-            <div>
-              <p class="font-bold text-gray-800 text-sm">左メニューの「Project Settings」を開く</p>
-              <p class="text-xs text-gray-500 mt-0.5">歯車アイコン ⚙️ をクリック</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
-            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">②</span>
-            <div>
-              <p class="font-bold text-gray-800 text-sm">「Data API」または「API」タブを開く</p>
-            </div>
-          </div>
+
+          <!-- Project URL -->
+          <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">① Project URL（ダッシュボードから取得）</p>
           <div class="flex items-start gap-3 bg-yellow-50 border border-yellow-200 rounded-xl p-3">
             <span class="text-yellow-500 text-lg shrink-0">🔑</span>
             <div>
-              <p class="font-bold text-gray-800 text-sm">Project URL をコピー</p>
+              <p class="font-bold text-gray-800 text-sm">ダッシュボード画面にURLが表示されています</p>
               <p class="text-xs text-gray-500 mt-0.5">例：https://xxxxxxxxxx.supabase.co</p>
+              <p class="text-xs text-gray-500 mt-0.5">横の「<span class="font-bold">Copy</span>」ボタンでコピーできます</p>
               <p class="text-xs text-yellow-600 mt-1">→ AMSの「Supabase URL」に貼り付ける</p>
+            </div>
+          </div>
+
+          <!-- anon key -->
+          <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mt-2">② anon public キー（Settings から取得）</p>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">1</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">左メニュー下部の ⚙️（Settings）をクリック</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">2</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「Data API」をクリック</p>
             </div>
           </div>
           <div class="flex items-start gap-3 bg-yellow-50 border border-yellow-200 rounded-xl p-3">
             <span class="text-yellow-500 text-lg shrink-0">🗝️</span>
             <div>
-              <p class="font-bold text-gray-800 text-sm">anon public キーをコピー</p>
-              <p class="text-xs text-gray-500 mt-0.5">「Project API keys」の中の anon / public キー</p>
+              <p class="font-bold text-gray-800 text-sm">「Project API keys」の <span class="text-green-600 font-black">anon / public</span> キーをコピー</p>
               <p class="text-xs text-yellow-600 mt-1">→ AMSの「anon public キー」に貼り付ける</p>
             </div>
           </div>
