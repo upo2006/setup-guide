@@ -334,15 +334,15 @@
             <p class="text-xs text-green-700">✅ 画面下部に「<strong>Success. No rows returned</strong>」と表示されれば成功です</p>
           </div>
 
-          <!-- AMS用SQL -->
-          <div id="sql-block-ams" class="bg-gray-900 rounded-xl overflow-hidden">
+          <!-- 共通SQL（AMS・MRS両対応） -->
+          <div class="bg-gray-900 rounded-xl overflow-hidden">
             <div class="flex items-center justify-between px-4 py-2 bg-gray-800">
-              <span class="text-xs text-gray-400 font-mono">setup_ams.sql</span>
+              <span class="text-xs text-gray-400 font-mono">setup.sql</span>
               <button id="copy-sql-btn" onclick="copySql()" class="copy-btn bg-gray-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-500">
                 📋 コピー
               </button>
             </div>
-            <pre id="sql-code-ams" class="text-green-400 text-xs p-4 font-mono overflow-x-auto">-- ① イベントテーブル
+            <pre id="sql-code" class="text-green-400 text-xs p-4 font-mono overflow-x-auto">-- ① イベントテーブル（AMS用）
 CREATE TABLE IF NOT EXISTS attendance_events (
   id          BIGSERIAL PRIMARY KEY,
   title       TEXT NOT NULL,
@@ -355,7 +355,7 @@ CREATE TABLE IF NOT EXISTS attendance_events (
   created_at  TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ② 出欠回答テーブル
+-- ② 出欠回答テーブル（AMS用）
 CREATE TABLE IF NOT EXISTS attendance_responses (
   id             BIGSERIAL PRIMARY KEY,
   event_id       BIGINT REFERENCES attendance_events(id) ON DELETE CASCADE,
@@ -368,7 +368,7 @@ CREATE TABLE IF NOT EXISTS attendance_responses (
   UNIQUE(event_id, jersey_number)
 );
 
--- ③ 選手・データ管理テーブル
+-- ③ 選手・データ管理テーブル（AMS・MRS共通）
 CREATE TABLE IF NOT EXISTS app_records (
   id         BIGSERIAL PRIMARY KEY,
   type       TEXT NOT NULL,
@@ -393,32 +393,6 @@ CREATE POLICY "public_update_responses" ON attendance_responses FOR UPDATE USING
 -- 認証ユーザーのみ イベント・選手を管理
 CREATE POLICY "auth_all_events"   ON attendance_events   FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticated USING (true) WITH CHECK (true);</pre>
-          </div>
-
-          <!-- MRS用SQL -->
-          <div id="sql-block-mrs" class="bg-gray-900 rounded-xl overflow-hidden" style="display:none">
-            <div class="flex items-center justify-between px-4 py-2 bg-gray-800">
-              <span class="text-xs text-gray-400 font-mono">setup_mrs.sql</span>
-              <button id="copy-sql-btn-mrs" onclick="copySql()" class="copy-btn bg-gray-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-500">
-                📋 コピー
-              </button>
-            </div>
-            <pre id="sql-code-mrs" class="text-green-400 text-xs p-4 font-mono overflow-x-auto">-- 試合・選手データ管理テーブル
-CREATE TABLE IF NOT EXISTS app_records (
-  id         BIGSERIAL PRIMARY KEY,
-  type       TEXT NOT NULL,
-  payload    JSONB,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- セキュリティポリシー（Row Level Security）
-ALTER TABLE app_records ENABLE ROW LEVEL SECURITY;
-
--- 全ユーザーの読み取りを許可
-CREATE POLICY "public_select_records" ON app_records FOR SELECT USING (true);
-
--- 認証ユーザーのみ管理
-CREATE POLICY "auth_all_records" ON app_records FOR ALL TO authenticated USING (true) WITH CHECK (true);</pre>
           </div>
 
           <div class="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-3">
@@ -625,10 +599,6 @@ CREATE POLICY "auth_all_records" ON app_records FOR ALL TO authenticated USING (
       document.getElementById('progress-bar').style.display = 'block';
       document.getElementById('nav-footer').style.display = 'block';
 
-      // SQL切り替え
-      document.getElementById('sql-block-ams').style.display = app === 'ams' ? 'block' : 'none';
-      document.getElementById('sql-block-mrs').style.display = app === 'mrs' ? 'block' : 'none';
-
       // Step6 コンテンツ更新
       document.getElementById('step6-app-name').textContent = info.name + ' を開く';
       document.getElementById('step6-app-url').textContent = info.label;
@@ -717,11 +687,9 @@ CREATE POLICY "auth_all_records" ON app_records FOR ALL TO authenticated USING (
     }
 
     function copySql() {
-      const codeId = selectedApp === 'mrs' ? 'sql-code-mrs' : 'sql-code-ams';
-      const btnId  = selectedApp === 'mrs' ? 'copy-sql-btn-mrs' : 'copy-sql-btn';
-      const sql = document.getElementById(codeId).textContent;
+      const sql = document.getElementById('sql-code').textContent;
       navigator.clipboard.writeText(sql).then(() => {
-        flashCopyBtn(btnId);
+        flashCopyBtn('copy-sql-btn');
       }).catch(() => {
         const ta = document.createElement('textarea');
         ta.value = sql;
@@ -729,7 +697,7 @@ CREATE POLICY "auth_all_records" ON app_records FOR ALL TO authenticated USING (
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        flashCopyBtn(btnId);
+        flashCopyBtn('copy-sql-btn');
       });
     }
 
