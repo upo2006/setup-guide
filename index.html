@@ -224,18 +224,24 @@
               <p class="text-xs text-red-500 mt-0.5">※「JWT Keys」ではなく「API Keys」です</p>
             </div>
           </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">3</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">上部タブの「<span class="text-blue-600">Legacy anon, service_role API keys</span>」をクリック</p>
+            </div>
+          </div>
           <div class="flex items-start gap-3 bg-yellow-50 border border-yellow-200 rounded-xl p-3">
             <span class="text-yellow-500 text-lg shrink-0">🗝️</span>
             <div>
-              <p class="font-bold text-gray-800 text-sm">「<span class="text-green-600">Publishable key</span>」の「default」行のキーをコピー</p>
-              <p class="text-xs text-gray-500 mt-0.5">右側のコピーアイコン📋をクリック</p>
+              <p class="font-bold text-gray-800 text-sm"><span class="bg-green-100 text-green-700 font-black px-1.5 py-0.5 rounded text-xs">anon</span> <span class="bg-blue-100 text-blue-700 font-black px-1.5 py-0.5 rounded text-xs">public</span> のキーをコピー</p>
+              <p class="text-xs text-gray-500 mt-0.5">「eyJ...」から始まる長いキー・右側「Copy」をクリック</p>
               <p class="text-xs text-yellow-600 mt-1">→ AMSの「anon public キー」に貼り付ける</p>
             </div>
           </div>
         </div>
 
         <div class="bg-red-50 border border-red-200 rounded-xl p-3 mb-4">
-          <p class="text-xs text-red-700">⚠️ <strong>「Secret keys」は使用しない</strong><br>「Publishable key」だけを使ってください</p>
+          <p class="text-xs text-red-700">⚠️ <strong>「service_role / secret」は使用しない</strong><br>「anon / public」のキーだけを使ってください</p>
         </div>
 
         <!-- 入力欄 -->
@@ -248,8 +254,8 @@
               class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-400">
           </div>
           <div>
-            <label class="text-xs font-bold text-gray-600 block mb-1">Publishable key（anon キー）</label>
-            <input id="input-key" type="text" placeholder="sb_publishable_..."
+            <label class="text-xs font-bold text-gray-600 block mb-1">anon public キー（eyJ...）</label>
+            <input id="input-key" type="text" placeholder="eyJhbGci..."
               oninput="saveInfo()"
               class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-400">
           </div>
