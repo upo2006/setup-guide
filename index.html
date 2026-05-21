@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMS セットアップガイド</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #f3f4f6; }
+    .step-card { display: none; }
+    .step-card.active { display: block; }
+    .copy-btn { transition: all 0.2s; }
+    .copy-btn.copied { background: #16a34a !important; }
+    pre { white-space: pre-wrap; word-break: break-all; }
+    .step-dot { transition: all 0.3s; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- ヘッダー -->
+  <div class="bg-red-500 text-white px-4 py-4 shadow-lg">
+    <div class="max-w-xl mx-auto flex items-center gap-3">
+      <span class="text-2xl">📋</span>
+      <div>
+        <h1 class="font-black text-lg leading-tight">AMS セットアップガイド</h1>
+        <p class="text-xs text-white/80">Attendance Management System</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- プログレスバー -->
+  <div class="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+    <div class="max-w-xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between mb-2">
+        <span id="step-label" class="text-sm font-bold text-gray-700">ステップ 1 / 6</span>
+        <span id="step-title-label" class="text-xs text-gray-500"></span>
+      </div>
+      <div class="flex gap-1.5">
+        <div id="dot-1" class="step-dot flex-1 h-2 rounded-full bg-red-500"></div>
+        <div id="dot-2" class="step-dot flex-1 h-2 rounded-full bg-gray-200"></div>
+        <div id="dot-3" class="step-dot flex-1 h-2 rounded-full bg-gray-200"></div>
+        <div id="dot-4" class="step-dot flex-1 h-2 rounded-full bg-gray-200"></div>
+        <div id="dot-5" class="step-dot flex-1 h-2 rounded-full bg-gray-200"></div>
+        <div id="dot-6" class="step-dot flex-1 h-2 rounded-full bg-gray-200"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-xl mx-auto px-4 py-6 pb-32">
+
+    <!-- STEP 1: アカウント作成 -->
+    <div id="step-1" class="step-card active">
+      <div class="bg-white rounded-2xl shadow-sm p-6 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm">1</span>
+          <h2 class="font-black text-gray-800 text-lg">Supabase アカウント作成</h2>
+        </div>
+        <p class="text-gray-600 text-sm mb-5">Supabase は無料で使えるデータベースサービスです。<br>アカウントをお持ちでない方は、まず作成してください。</p>
+
+        <div class="space-y-3 mb-5">
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">①</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">下のボタンから Supabase を開く</p>
+              <p class="text-xs text-gray-500 mt-0.5">supabase.com にアクセスします</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">②</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「Start your project」をクリック</p>
+              <p class="text-xs text-gray-500 mt-0.5">GitHub アカウントでサインアップが便利です</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">③</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">メール認証を完了する</p>
+              <p class="text-xs text-gray-500 mt-0.5">登録メールに届く確認メールのリンクをクリック</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://supabase.com" target="_blank"
+           class="block w-full bg-green-500 text-white font-black text-center py-3.5 rounded-xl hover:bg-green-600 transition-colors">
+          🔗 Supabase を開く（supabase.com）
+        </a>
+
+        <div class="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-3">
+          <p class="text-xs text-blue-700">✅ アカウント作成が完了したら「次へ」に進んでください</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: プロジェクト作成 -->
+    <div id="step-2" class="step-card">
+      <div class="bg-white rounded-2xl shadow-sm p-6 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm">2</span>
+          <h2 class="font-black text-gray-800 text-lg">プロジェクト作成</h2>
+        </div>
+        <p class="text-gray-600 text-sm mb-5">Supabase ダッシュボードで新しいプロジェクトを作成します。</p>
+
+        <div class="space-y-3 mb-5">
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">①</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「New project」をクリック</p>
+              <p class="text-xs text-gray-500 mt-0.5">ダッシュボード上部または中央にあります</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">②</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">プロジェクト名を入力</p>
+              <p class="text-xs text-gray-500 mt-0.5">例：my-team-ams（半角英数字・ハイフン）</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">③</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">データベースパスワードを設定</p>
+              <p class="text-xs text-gray-500 mt-0.5">強いパスワードを設定してどこかにメモしてください</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">④</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">リージョンを選択</p>
+              <p class="text-xs text-gray-500 mt-0.5">
+                <span class="bg-yellow-100 text-yellow-700 font-bold px-1.5 py-0.5 rounded">推奨</span>
+                Northeast Asia (Tokyo)
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">⑤</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「Create new project」をクリック</p>
+              <p class="text-xs text-gray-500 mt-0.5">作成に1〜2分かかります</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+          <p class="text-xs text-blue-700">✅ プロジェクトのダッシュボードが表示されたら「次へ」に進んでください</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: URL・キー取得 -->
+    <div id="step-3" class="step-card">
+      <div class="bg-white rounded-2xl shadow-sm p-6 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm">3</span>
+          <h2 class="font-black text-gray-800 text-lg">URL・APIキーの取得</h2>
+        </div>
+        <p class="text-gray-600 text-sm mb-5">AMS の接続に必要な2つの情報を取得します。</p>
+
+        <div class="space-y-3 mb-5">
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">①</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">左メニューの「Project Settings」を開く</p>
+              <p class="text-xs text-gray-500 mt-0.5">歯車アイコン ⚙️ をクリック</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">②</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「Data API」または「API」タブを開く</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-yellow-50 border border-yellow-200 rounded-xl p-3">
+            <span class="text-yellow-500 text-lg shrink-0">🔑</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">Project URL をコピー</p>
+              <p class="text-xs text-gray-500 mt-0.5">例：https://xxxxxxxxxx.supabase.co</p>
+              <p class="text-xs text-yellow-600 mt-1">→ AMSの「Supabase URL」に貼り付ける</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-yellow-50 border border-yellow-200 rounded-xl p-3">
+            <span class="text-yellow-500 text-lg shrink-0">🗝️</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">anon public キーをコピー</p>
+              <p class="text-xs text-gray-500 mt-0.5">「Project API keys」の中の anon / public キー</p>
+              <p class="text-xs text-yellow-600 mt-1">→ AMSの「anon public キー」に貼り付ける</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-red-50 border border-red-200 rounded-xl p-3">
+          <p class="text-xs text-red-700">⚠️ <strong>service_role キーは使用しない</strong><br>anon / public と書かれているキーだけを使ってください</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: テーブル作成 -->
+    <div id="step-4" class="step-card">
+      <div class="bg-white rounded-2xl shadow-sm p-6 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm">4</span>
+          <h2 class="font-black text-gray-800 text-lg">テーブル作成（SQL実行）</h2>
+        </div>
+        <p class="text-gray-600 text-sm mb-5">データベースにAMSが使うテーブルを作成します。</p>
+
+        <div class="space-y-3 mb-5">
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">①</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">左メニューの「SQL Editor」を開く</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">②</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">下のSQLをコピーして貼り付ける</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">③</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「Run」ボタンをクリック</p>
+              <p class="text-xs text-gray-500 mt-0.5">▶ または Ctrl+Enter で実行</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQL表示エリア -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-2 bg-gray-800">
+            <span class="text-xs text-gray-400 font-mono">setup.sql</span>
+            <button id="copy-sql-btn" onclick="copySql()" class="copy-btn bg-gray-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-500">
+              📋 コピー
+            </button>
+          </div>
+          <pre id="sql-code" class="text-green-400 text-xs p-4 font-mono overflow-x-auto">-- ① イベントテーブル
+CREATE TABLE IF NOT EXISTS attendance_events (
+  id          BIGSERIAL PRIMARY KEY,
+  title       TEXT NOT NULL,
+  event_date  DATE NOT NULL,
+  event_time  TEXT,
+  category    TEXT,
+  location    TEXT,
+  transport   TEXT,
+  memo        TEXT,
+  created_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ② 出欠回答テーブル
+CREATE TABLE IF NOT EXISTS attendance_responses (
+  id             BIGSERIAL PRIMARY KEY,
+  event_id       BIGINT REFERENCES attendance_events(id) ON DELETE CASCADE,
+  jersey_number  TEXT NOT NULL,
+  attendance     TEXT,
+  transport_need TEXT,
+  carpool        TEXT,
+  notes          TEXT,
+  created_at     TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(event_id, jersey_number)
+);
+
+-- ③ 選手・データ管理テーブル
+CREATE TABLE IF NOT EXISTS app_records (
+  id         BIGSERIAL PRIMARY KEY,
+  type       TEXT NOT NULL,
+  payload    JSONB,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ④ セキュリティポリシー（Row Level Security）
+ALTER TABLE attendance_events   ENABLE ROW LEVEL SECURITY;
+ALTER TABLE attendance_responses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE app_records         ENABLE ROW LEVEL SECURITY;
+
+-- 全ユーザーの読み取りを許可
+CREATE POLICY "public_select_events"    ON attendance_events   FOR SELECT USING (true);
+CREATE POLICY "public_select_responses" ON attendance_responses FOR SELECT USING (true);
+CREATE POLICY "public_select_records"   ON app_records         FOR SELECT USING (true);
+
+-- 全ユーザーの書き込みを許可（出欠回答）
+CREATE POLICY "public_insert_responses" ON attendance_responses FOR INSERT WITH CHECK (true);
+CREATE POLICY "public_update_responses" ON attendance_responses FOR UPDATE USING (true);
+
+-- 認証ユーザーのみ イベント・選手を管理
+CREATE POLICY "auth_all_events"   ON attendance_events   FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticated USING (true) WITH CHECK (true);</pre>
+        </div>
+
+        <div class="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-3">
+          <p class="text-xs text-blue-700">✅ 「Success. No rows returned」と表示されれば完了です</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: 管理者メール設定 -->
+    <div id="step-5" class="step-card">
+      <div class="bg-white rounded-2xl shadow-sm p-6 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm">5</span>
+          <h2 class="font-black text-gray-800 text-lg">管理者ユーザーの作成</h2>
+        </div>
+        <p class="text-gray-600 text-sm mb-5">AMSにログインするための管理者アカウントを作成します。</p>
+
+        <div class="space-y-3 mb-5">
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">①</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">左メニューの「Authentication」を開く</p>
+              <p class="text-xs text-gray-500 mt-0.5">🔒 アイコンをクリック</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">②</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「Users」タブ →「Add user」をクリック</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">③</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">メールアドレスとパスワードを入力</p>
+              <p class="text-xs text-gray-500 mt-0.5">これがAMSへのログイン情報になります</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">④</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「Create user」で作成</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-3">
+          <p class="text-xs text-yellow-700">💡 メールアドレスとパスワードは大切に保管してください。<br>AMS へのログインに使用します。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: AMS設定 -->
+    <div id="step-6" class="step-card">
+      <div class="bg-white rounded-2xl shadow-sm p-6 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-black text-sm">6</span>
+          <h2 class="font-black text-gray-800 text-lg">AMS に接続設定を入力</h2>
+        </div>
+        <p class="text-gray-600 text-sm mb-5">ステップ3で取得した URL とキーを AMS に入力します。</p>
+
+        <div class="space-y-3 mb-5">
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">①</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">AMS を開く</p>
+              <p class="text-xs text-gray-500 mt-0.5">upo2006.github.io/ams-app/</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">②</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">右上の ⚙️ → 🔑 ログイン</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">③</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">接続設定フォームに入力</p>
+              <div class="mt-2 space-y-1">
+                <p class="text-xs bg-white border border-gray-200 rounded px-2 py-1">チーム名：チームの名前</p>
+                <p class="text-xs bg-white border border-gray-200 rounded px-2 py-1">Supabase URL：手順3でコピーしたURL</p>
+                <p class="text-xs bg-white border border-gray-200 rounded px-2 py-1">anon public キー：手順3でコピーしたキー</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+            <span class="bg-red-100 text-red-600 font-black text-sm rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-0.5">④</span>
+            <div>
+              <p class="font-bold text-gray-800 text-sm">「接続テスト＆保存」をクリック</p>
+              <p class="text-xs text-gray-500 mt-0.5">✅ 成功が表示されればセットアップ完了です！</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 完了メッセージ -->
+        <div class="bg-green-50 border border-green-300 rounded-xl p-4 text-center">
+          <p class="text-2xl mb-2">🎉</p>
+          <p class="font-black text-green-700 text-base">セットアップ完了！</p>
+          <p class="text-xs text-green-600 mt-1">AMS でチームの出欠管理を始めましょう</p>
+          <a href="https://upo2006.github.io/ams-app/" target="_blank"
+             class="mt-3 block bg-green-500 text-white font-black text-sm py-3 rounded-xl hover:bg-green-600 transition-colors">
+            🚀 AMS を開く
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ナビゲーションボタン（固定フッター） -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 shadow-lg">
+    <div class="max-w-xl mx-auto flex gap-3">
+      <button id="prev-btn" onclick="prevStep()"
+        class="flex-1 bg-gray-100 text-gray-700 font-bold py-3.5 rounded-xl hover:bg-gray-200 transition-colors hidden">
+        ← 戻る
+      </button>
+      <button id="next-btn" onclick="nextStep()"
+        class="flex-1 bg-red-500 text-white font-black py-3.5 rounded-xl hover:bg-red-600 transition-colors">
+        次へ →
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const STEPS = [
+      'アカウント作成',
+      'プロジェクト作成',
+      'URL・APIキー取得',
+      'テーブル作成',
+      '管理者ユーザー作成',
+      'AMS 接続設定',
+    ];
+    let current = 1;
+
+    function updateUI() {
+      // カードの表示切り替え
+      for (let i = 1; i <= 6; i++) {
+        const card = document.getElementById('step-' + i);
+        card.classList.toggle('active', i === current);
+      }
+      // ドットの色
+      for (let i = 1; i <= 6; i++) {
+        const dot = document.getElementById('dot-' + i);
+        dot.className = 'step-dot flex-1 h-2 rounded-full ' + (i <= current ? 'bg-red-500' : 'bg-gray-200');
+      }
+      // ラベル
+      document.getElementById('step-label').textContent = 'ステップ ' + current + ' / 6';
+      document.getElementById('step-title-label').textContent = STEPS[current - 1];
+      // ボタン
+      const prev = document.getElementById('prev-btn');
+      const next = document.getElementById('next-btn');
+      prev.classList.toggle('hidden', current === 1);
+      if (current === 6) {
+        next.textContent = '✅ 完了';
+        next.onclick = () => { next.textContent = '🎉 お疲れ様でした！'; next.disabled = true; };
+      } else {
+        next.textContent = '次へ →';
+        next.onclick = nextStep;
+        next.disabled = false;
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextStep() {
+      if (current < 6) { current++; updateUI(); }
+    }
+    function prevStep() {
+      if (current > 1) { current--; updateUI(); }
+    }
+
+    function copySql() {
+      const sql = document.getElementById('sql-code').textContent;
+      navigator.clipboard.writeText(sql).then(() => {
+        const btn = document.getElementById('copy-sql-btn');
+        btn.textContent = '✅ コピー済み';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        // フォールバック
+        const ta = document.createElement('textarea');
+        ta.value = sql;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        const btn = document.getElementById('copy-sql-btn');
+        btn.textContent = '✅ コピー済み';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // 初期化
+    updateUI();
+  </script>
+</body>
+</html>
