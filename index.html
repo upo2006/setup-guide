@@ -234,8 +234,26 @@
           </div>
         </div>
 
-        <div class="bg-red-50 border border-red-200 rounded-xl p-3">
+        <div class="bg-red-50 border border-red-200 rounded-xl p-3 mb-4">
           <p class="text-xs text-red-700">⚠️ <strong>「Secret keys」は使用しない</strong><br>「Publishable key」だけを使ってください</p>
+        </div>
+
+        <!-- 入力欄 -->
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-3">
+          <p class="text-sm font-black text-gray-700">📝 取得した情報をここに入力・保存</p>
+          <div>
+            <label class="text-xs font-bold text-gray-600 block mb-1">Supabase URL</label>
+            <input id="input-url" type="text" placeholder="https://xxxxxxxxxx.supabase.co"
+              oninput="saveInfo()"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-400">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-gray-600 block mb-1">Publishable key（anon キー）</label>
+            <input id="input-key" type="text" placeholder="sb_publishable_..."
+              oninput="saveInfo()"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-400">
+          </div>
+          <p class="text-xs text-gray-400">※ この情報はこのデバイス内にのみ保存されます</p>
         </div>
       </div>
     </div>
@@ -425,11 +443,40 @@ CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticate
           </div>
         </div>
 
+        <!-- 必要情報一覧 -->
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
+          <p class="text-sm font-black text-gray-700 mb-3">📋 AMS に入力する情報</p>
+          <div class="space-y-2">
+            <div>
+              <p class="text-xs font-bold text-gray-500 mb-1">Supabase URL</p>
+              <div class="flex gap-2">
+                <input id="show-url" type="text" readonly placeholder="ステップ3で入力してください"
+                  class="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-800 min-w-0">
+                <button onclick="copyField('show-url','copy-url-btn')" id="copy-url-btn"
+                  class="copy-btn shrink-0 bg-red-500 text-white text-xs font-bold px-3 py-2 rounded-lg hover:bg-red-600">
+                  コピー
+                </button>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-gray-500 mb-1">anon public キー（Publishable key）</p>
+              <div class="flex gap-2">
+                <input id="show-key" type="text" readonly placeholder="ステップ3で入力してください"
+                  class="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-800 min-w-0">
+                <button onclick="copyField('show-key','copy-key-btn')" id="copy-key-btn"
+                  class="copy-btn shrink-0 bg-red-500 text-white text-xs font-bold px-3 py-2 rounded-lg hover:bg-red-600">
+                  コピー
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- 完了メッセージ -->
         <div class="bg-green-50 border border-green-300 rounded-xl p-4 text-center">
           <p class="text-2xl mb-2">🎉</p>
           <p class="font-black text-green-700 text-base">セットアップ完了！</p>
-          <p class="text-xs text-green-600 mt-1">AMS でチームの出欠管理を始めましょう</p>
+          <p class="text-xs text-green-600 mt-1">上の情報をコピーして AMS に貼り付けてください</p>
           <a href="https://upo2006.github.io/ams-app/" target="_blank"
              class="mt-3 block bg-green-500 text-white font-black text-sm py-3 rounded-xl hover:bg-green-600 transition-colors">
             🚀 AMS を開く
@@ -492,6 +539,7 @@ CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticate
         next.disabled = false;
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      loadInfo();
     }
 
     function nextStep() {
@@ -499,6 +547,49 @@ CREATE POLICY "auth_all_records"  ON app_records         FOR ALL TO authenticate
     }
     function prevStep() {
       if (current > 1) { current--; updateUI(); }
+    }
+
+    function saveInfo() {
+      const url = document.getElementById('input-url')?.value || '';
+      const key = document.getElementById('input-key')?.value || '';
+      try {
+        localStorage.setItem('ams_setup_url', url);
+        localStorage.setItem('ams_setup_key', key);
+      } catch(e) {}
+    }
+
+    function loadInfo() {
+      try {
+        const url = localStorage.getItem('ams_setup_url') || '';
+        const key = localStorage.getItem('ams_setup_key') || '';
+        const inputUrl = document.getElementById('input-url');
+        const inputKey = document.getElementById('input-key');
+        if (inputUrl) inputUrl.value = url;
+        if (inputKey) inputKey.value = key;
+        const showUrl = document.getElementById('show-url');
+        const showKey = document.getElementById('show-key');
+        if (showUrl) showUrl.value = url;
+        if (showKey) showKey.value = key;
+      } catch(e) {}
+    }
+
+    function copyField(inputId, btnId) {
+      const val = document.getElementById(inputId)?.value || '';
+      if (!val) return;
+      navigator.clipboard.writeText(val).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = val;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      });
+      const btn = document.getElementById(btnId);
+      if (btn) {
+        btn.textContent = '✅';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 2000);
+      }
     }
 
     function copySql() {
