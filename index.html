@@ -295,7 +295,10 @@ CREATE TABLE IF NOT EXISTS attendance_events (
   event_time  TEXT,
   category    TEXT,
   location    TEXT,
+  meetup      TEXT,
+  uniform     TEXT,
   transport   TEXT,
+  detail      TEXT,
   memo        TEXT,
   created_at  TIMESTAMPTZ DEFAULT NOW()
 );
