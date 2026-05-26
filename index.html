@@ -300,6 +300,7 @@ CREATE TABLE IF NOT EXISTS attendance_events (
   transport   TEXT,
   detail      TEXT,
   memo        TEXT,
+  series_id   TEXT,
   created_at  TIMESTAMPTZ DEFAULT NOW()
 );
 
